@@ -30,6 +30,12 @@ export function getConfigObject(): IConfig {
     if (configObject.SECRETE_CODE) {
       configResult.SECRETE_CODE = configObject.SECRETE_CODE
     }
+    if (configObject.ADMIN_LOGIN) {
+      configResult.ADMIN_LOGIN = configObject.ADMIN_LOGIN
+    }
+    if (configObject.ADMIN_PASS) {
+      configResult.ADMIN_PASS = configObject.ADMIN_PASS
+    }
   } else {
     throw new Error("something wrong with .env file config")
   }
@@ -45,6 +51,8 @@ export interface IConfig {
   DB_PASSWORD: string
   DB_TYPE: SupportedDB
   SECRETE_CODE: string
+  ADMIN_LOGIN: string
+  ADMIN_PASS: string
 }
 
 class Config implements IConfig {
@@ -56,6 +64,8 @@ class Config implements IConfig {
   DB_HOST: string = "127.0.0.1"
   DB_USER_NAME: string = "admin"
   SECRETE_CODE: string = "secrete code"
+  ADMIN_LOGIN: string = "admin"
+  ADMIN_PASS: string = "12345678"
 }
 
 type SupportedDB = "mongodb"

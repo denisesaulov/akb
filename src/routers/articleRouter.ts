@@ -5,12 +5,14 @@ import {getArticleCreateMiddleware} from "../middlewares/articleCreateMiddleware
 import {getArticleDeleteMiddleware} from "../middlewares/articleDeleteMiddleware"
 import {getArticleFindMiddleware} from "../middlewares/articleFindMiddleware"
 import {getArticleUpdateMiddleware} from "../middlewares/articleUpdateMiddleware"
+import {articleCreateValidator} from "../middlewares/validators"
+import {checkRequestError} from "../middlewares/checkRequestError"
 
 export function getArticlesRouter(ds: DataSource): Router {
   const router = Router()
   const controller = new ArticleController(ds)
 
-  router.post("/", getArticleCreateMiddleware(controller))
+  router.post("/", articleCreateValidator, checkRequestError, getArticleCreateMiddleware(controller))
 
   router.delete("/:articleId", getArticleDeleteMiddleware(controller))
 

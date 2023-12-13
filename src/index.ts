@@ -6,13 +6,15 @@ import {getArticlesRouter as articles} from "./routers/articleRouter"
 import {getDataSource} from "./db"
 import {getAuthMiddleware} from "./middlewares/authMiddleware"
 import {errorHandlerMiddleware} from "./middlewares/errorHandlerMiddleware"
+import {bootstrap} from "./bootstrap"
 
 async function start() {
   const config = getConfigObject()
   const app = express()
   try {
-    const dataSource = await getDataSource(config)
-      .initialize()
+    const dataSource = await getDataSource(config).initialize()
+    await bootstrap(dataSource, config)
+
     app.use(express.json())
 
     app.use(getAuthMiddleware(config.SECRETE_CODE))
